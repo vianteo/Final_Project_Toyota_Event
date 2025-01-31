@@ -1,86 +1,8 @@
-// import { useEffect, useState } from "react";
-// import Link from "next/link";
-// import 'bootstrap/dist/css/bootstrap.min.css';
-
-// export default function HomeEvent() {
-//     const [dataEvent, setDataEvent] = useState([])
-//     const [inputSearch, setInputSearch] = useState("")
-
-//     useEffect(() => {
-//         getApi()
-//     },[])
-
-//     const getApi = async() => {
-       
-//         try {
-//             const data = await fetch ("/api/event-data")
-//             const result = await data.json()
-
-//             console.log(result, "===> INI DATANYA");
-//             setDataEvent(result.data)
-
-//         } catch (error) {
-//             console.log(error); 
-//         }
-            
-//     }
-
-//     const handleOnSubmit = async (e) => {
-//         e.preventDefault()
-//         let inputUser = {
-//             search: inputSearch
-//         }
-//         try {
-//             const requestData = await fetch(`api/event-by-search?search=${inputSearch}`, {
-//                 method: "POST",
-//                 body: JSON.stringify(inputUser)
-//             })
-             
-//             const result = await requestData.json()
-//             console.log(result.data, "===> INI APA MAS AMJAD");
-            
-//             setDataEvent(result.data)
-
-//         } catch (error) {
-//             console.log(result.data, " ===> INI ERROR");
-//         }
-//     }
-
-//     const handleInputText = (valueData) => {
-//         console.log(valueData," ===> RERQUESt PAK FATTAH");
-//         setInputSearch(valueData)
-//     }
-//     return(
-//         <>
-//         <h1>This is HomeEvent</h1>
-//         <form onSubmit={handleOnSubmit}>
-//             <label>Search</label>
-//             <input
-//             value={inputSearch}
-//             type="text"
-//             onChange={e => handleInputText(e.target.value)}/>
-    
-//             <input type="submit" value="Seacrh Ya"/>
-
-//         </form>
-//         <ul>
-//             {
-//                 dataEvent.map(el => (
-//                 <>
-//                 <li key={(el.id)}>{el.title}</li>
-//                 <Link href={`/detail-event/${el.id}`}> this is detail</Link>                
-//                 </>     
-//                 ))
-//             }
-//         </ul>
-//         </>
-//     )
-// }
-
 "use client";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
 export default function HomeEvent() {
   const [dataEvent, setDataEvent] = useState([]);
@@ -120,8 +42,38 @@ export default function HomeEvent() {
       <h1 className="text-center mb-4">Event Showcase</h1>
 
  {/* carousel */}
-
  <div id="eventCarousel" className="carousel slide" data-bs-ride="carousel">
+        <div className="carousel-inner">
+          {dataEvent.map((el, index) => (
+            <div
+              className={`carousel-item ${index === 0 ? "active" : ""}`}
+              key={el.id}
+              data-bs-interval="3000" 
+            >
+              <img
+                src={el.image}
+                className="d-block w-100"
+                alt={el.title}
+                style={{ maxHeight: "400px", objectFit: "cover" }}
+              />
+              <div className="carousel-caption d-none d-md-block bg-dark bg-opacity-50 p-2 rounded">
+                <h5>{el.title}</h5>
+                <p>{el.description}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+        <button className="carousel-control-prev" type="button" data-bs-target="#eventCarousel" data-bs-slide="prev">
+          <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span className="visually-hidden">Previous</span>
+        </button>
+        <button className="carousel-control-next" type="button" data-bs-target="#eventCarousel" data-bs-slide="next">
+          <span className="carousel-control-next-icon" aria-hidden="true"></span>
+          <span className="visually-hidden">Next</span>
+        </button>
+      </div>
+
+ {/* <div id="eventCarousel" className="carousel slide" data-bs-ride="carousel">
         <div className="carousel-inner">
           {dataEvent.map((el, index) => (
             <div
@@ -137,7 +89,7 @@ export default function HomeEvent() {
             </div>
           ))}
         </div>
-      </div>
+      </div> */}
 
 <br>
 </br>
