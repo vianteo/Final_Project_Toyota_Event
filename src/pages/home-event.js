@@ -2,7 +2,14 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+
+const textStyle = {
+    display: "-webkit-box",
+    WebkitBoxOrient: "vertical",
+    overflow: "hidden",
+    WebkitLineClamp: 2,
+    textOverflow: "ellipsis",
+  };
 
 export default function HomeEvent() {
   const [dataEvent, setDataEvent] = useState([]);
@@ -11,6 +18,11 @@ export default function HomeEvent() {
   useEffect(() => {
     getApi();
   }, []);
+
+  useEffect(() => {
+    require('bootstrap/dist/js/bootstrap.bundle.min.js');
+  }, []);
+
 
   const getApi = async () => {
     try {
@@ -118,16 +130,20 @@ export default function HomeEvent() {
                     src={el.image}
                     className="card-img-top"
                     alt={el.title}
-                    style={{ maxHeight: "200px", objectFit: "cover" }}
+                    style={{ maxHeight: "160px", objectFit: "cover" }}
                   />
                 )}
                 <div className="card-body">
                   <h5 className="card-title">{el.title}</h5>
-                  <p className="card-text">
+                  <p className="card-text" style={textStyle}>
+                    {el.description}
+                    </p>
+                  {/* <p className="card-text">
                     {el.description.length > 100
                       ? `${el.description.substring(0, 100)}...`
                       : el.description}
-                  </p>
+                  </p> */}
+                  
                   <Link href={`/detail-event/${el.id}`} className="btn btn-outline-primary">
                     View Details
                   </Link>
