@@ -134,7 +134,7 @@ export default function DetailEvent() {
               src={dataById.image}
               alt={dataById.title}
               className="card-img-top rounded mb-4"
-              style={{ maxHeight: "400px", objectFit: "cover" }}
+              style={{ maxHeight: "600px", objectFit: "cover" }}
             />
           )}
 
